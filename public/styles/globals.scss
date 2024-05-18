@@ -45,7 +45,7 @@ body{
         margin: 0;
         padding: 0;
         .nav-item{
-            font-weight: 200;
+            font-weight: 400;
             font-size: 16px;
             cursor: pointer;
             color: $text-color-light;
@@ -179,6 +179,7 @@ body{
 .money-statistics{
     display: flex;
     flex-direction: row;
+    gap: 1rem;
     .total-money{
         width: 280px;
         height: 280px;
@@ -229,6 +230,30 @@ body{
                 box-shadow: -4px -4px 20px rgba($text-color-light, 0.3);
                 background-color: $text-color-bg-light;
             }
+        }
+    }
+    .total-paids{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .paids, .nopaids{
+            width: 100px;
+            height: 100px;
+            background-color: $text-color-light;
+            border-radius: 25px;
+            padding: 30px;
+            color: $text-color-bg-light;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            .total-paids{
+                font-size: 50px;
+                font-weight: 600;
+            }
+        }
+        .nopaids{
+            background-color: $secondary-color-light;
         }
     }
 }

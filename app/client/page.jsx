@@ -13,6 +13,9 @@ const Client = () => {
   const totalMoney = 1540.52
   const totalSuppostedMoney = 2460
 
+  const paids = 154
+  const nopaids = 24
+
   useEffect(()=>{
     const rootStyles = getComputedStyle(document.documentElement);
 
@@ -44,6 +47,39 @@ const Client = () => {
         clearInterval(progress)
       }
     }, speed)
+
+    let paidsText = document.getElementById('paids'),
+    nopaidsText = document.getElementById('nopaids')
+
+    let paidsStartValue = 0,
+    paidsEndValue = paids,
+    nopaidsStartValue = 0,
+    nopaidsEndValue = nopaids,
+    paidsSpeed = 10
+
+    let progressPaids = setInterval(() => {
+
+      paidsStartValue++
+
+      paidsText.textContent = `${paidsStartValue}`
+
+      if(paidsStartValue == paidsEndValue){
+        clearInterval(progressPaids)
+      }
+      
+    },paidsSpeed)
+
+    let progressNoPaids = setInterval(() => {
+
+      nopaidsStartValue++
+
+      nopaidsText.textContent = `${nopaidsStartValue}`
+
+      if(paidsStartValue == nopaidsEndValue){
+        clearInterval(progressNoPaids)
+      }
+      
+    },paidsSpeed)
   },[])
 
   return (
@@ -92,11 +128,11 @@ const Client = () => {
           </div>
           <div className="total-paids">
             <div className="paids">
-              <span className='total-paids'>154</span>
+              <span className='total-paids' id='paids'>{0}</span>
               <span className='tag'>Pagados</span>
             </div>
             <div className="nopaids">
-              <span className='total-paids'>24</span>
+              <span className='total-paids' id='nopaids'>{0}</span>
               <span className='tag'>No Pagados</span>
             </div>
           </div>
