@@ -1,0 +1,108 @@
+@import 'variables';
+@import 'mixins';
+@import url('https://fonts.googleapis.com/css2?family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Pathway Extreme", sans-serif;
+}
+
+.app{
+    margin: 0;
+}
+
+.main-page{
+    padding: 0 80px;
+    height: 100vh;
+    background-color: $background-color-light;
+    transition: 1s all ease-out;
+}
+
+.client-page{
+    background-color: $background-color-light;
+    height: 100vh;
+}
+
+/* Main Nav Bar */
+
+.main-navbar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    height: 80px;
+    align-items: center;
+    border-bottom: solid 1px $text-color-light;
+    transition: 1s all ease-out;
+    .items-wrap{
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        align-items: center;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+        .nav-item{
+            font-weight: 100;
+            font-size: 16px;
+            cursor: pointer;
+            color: $text-color-light;
+            transition: 1s all ease-out;
+            &.btn{
+                background-color: $text-color-light;
+                padding: 10px 20px;
+                color: $text-color-bg-light;
+                font-weight: 600;
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+.logo-navbar{
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: 1s all ease-out;
+}
+
+.btn-icon{
+    position: fixed;
+    background-color: $text-color-light;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &#exit{
+        left: 30px;
+        bottom: 30px;
+    }
+    &#sb{
+        left: 30px;
+        top: 30px;
+    }
+}
+
+.dark{
+    .main-page{
+        background-color: $background-color-dark;
+    }
+    .main-navbar{
+        border-bottom: solid 1px $text-color-dark;
+        .items-wrap{
+            .nav-item{
+                color: $text-color-dark;
+                &.btn{
+                    color: $text-color-bg-dark;
+                    background-color: $text-color-dark;
+                }
+            }
+        }
+    }
+}
