@@ -92,10 +92,12 @@ const Client = () => {
           </div>
           <div className="total-paids">
             <div className="paids">
-
+              <span className='total-paids'>154</span>
+              <span className='tag'>Pagados</span>
             </div>
             <div className="nopaids">
-
+              <span className='total-paids'>24</span>
+              <span className='tag'>No Pagados</span>
             </div>
           </div>
         </div>
