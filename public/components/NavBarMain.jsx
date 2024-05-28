@@ -38,7 +38,7 @@ const NavBarMain = () => {
                 <li className="nav-item">
                     Crear Cuenta
                 </li>
-                <li className="btn nav-item" onClick={()=>router.push('/client')}>
+                <li className="btn01 nav-item" onClick={()=>router.push('/client')}>
                     Ingresar
                 </li>
             </ul>

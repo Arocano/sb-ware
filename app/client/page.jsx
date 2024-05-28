@@ -6,9 +6,13 @@ import CalendarIcon from '@public/assets/icons/calendar-icon.png'
 import DollarIcon from '@public/assets/icons/dollar-icon.png'
 import Image from 'next/image'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 
 const Client = () => {
+
+  /* Navigation */
+  const router = useRouter()
 
   const totalMoney = 1840.52
   const totalSuppostedMoney = 2460
@@ -302,7 +306,7 @@ const Client = () => {
           </div>
           <div className="footer-datatable">
             <span>
-              Últimos pagos recibidos
+              Últimos pagos
             </span>
             <a>
               Ver todos
@@ -344,9 +348,9 @@ const Client = () => {
           </div>
           <div className="footer-datatable">
             <span>
-              Últimos clientes registrados
+              Últimos clientes
             </span>
-            <a>
+            <a onClick={()=>router.push('/client/business')}>
               Ver todos
             </a>
           </div>

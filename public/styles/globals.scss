@@ -6,6 +6,18 @@ body{
     margin: 0;
     padding: 0;
     font-family: "Pathway Extreme", sans-serif;
+    background-color: $background-color-light;
+}
+
+ul, h1{
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    margin: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .app{
@@ -50,7 +62,7 @@ body{
             cursor: pointer;
             color: $text-color-light;
             transition: 1s all ease-out;
-            &.btn{
+            &.btn01{
                 background-color: $text-color-light;
                 padding: 10px 20px;
                 color: $text-color-bg-light;
@@ -76,29 +88,35 @@ body{
     position: fixed;
     background-color: $text-color-light;
     border-radius: 30px;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: solid 5px $text-color-bg-light;
     &#exit{
-        left: 30px;
-        bottom: 30px;
+        right: 20px;
+        top: 20px;
     }
     &#sb{
-        left: 30px;
-        top: 30px;
+        left: 20px;
+        top: 20px;
     }
 }
 
 .client-navbar{
     position: fixed;    
-    top: 60px;
+    top: 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -0%);
     height: fit-content;
     width: fit-content;
+    width: 100%;
+    background-color: $text-color-bg-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .items-wrap{
         margin: 0;
         display: flex;
@@ -107,9 +125,7 @@ body{
         justify-content: center;
         align-items: center;
         list-style: none;
-        height: 40px;
-        padding: 0 40px 20px 40px;
-        border-bottom: solid 1px $text-color-light;
+        height: 50px;
         .nav-item{
             width: 32px;
             display: flex;
@@ -150,6 +166,7 @@ body{
     gap: 1rem;
     height: 342px;
 }
+
 .dashboard-part-02{
     display: flex;
     gap: 1rem;
@@ -309,7 +326,8 @@ body{
                     td{
                         padding: 10px 0;
                         text-align: start;
-                        width: 150px;
+                        width: 120px;
+                        font-size: 14px;
                         &:nth-child(1){
                             width: 200px;
                         }
@@ -336,6 +354,9 @@ body{
     justify-content: space-between;
     padding: 0 20px;
     align-items: center;
+    span{
+        font-size: 13px;
+    }
     a{
         background-color: $text-color-light;
         color: $text-color-bg-light;
@@ -343,6 +364,7 @@ body{
         padding: 10px 20px;
         border-radius: 10px;
         cursor: pointer;
+        font-size: 13px;
     }
 }
 
@@ -370,7 +392,8 @@ body{
                     td{
                         padding: 10px 0;
                         text-align: start;
-                        width: 150px;
+                        width: 130px;
+                        font-size: 14px;
                         &:last-child{
                             text-align: end;
                         }
@@ -437,6 +460,270 @@ body{
 
 }
 
+/* Company Page */
+
+.company-page{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.navbar-business{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    transition: .3s ease-out;
+    ul{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        li{
+            font-size: 16px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            &.active{
+                border-radius: 8px;
+                background-color: $primary-color-light;
+                color: $text-color-bg-light;
+                transition: .3s ease-out;
+                &:hover{
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+    
+}
+
+.stats-bar{
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    .card-bar{
+        cursor: pointer;
+        background-color: $text-color-light;
+        color: $text-color-bg-light;
+        padding: 10px;
+        border-radius: 10px;
+        width: 100%;
+        h1{
+            font-size: 50px;
+        }
+        .active-bar{
+            width: 0;
+            height: 5px;
+            background-color: transparent;
+            transition: .3s ease-out;
+            border-radius: 2px;
+        }
+        &.active{
+            .active-bar{
+                width: 100%;
+                background-color: $text-color-bg-light;
+            }
+        }
+        &.primary{
+            background-color: $primary-color-light;
+        }
+        &.gray{
+            background-color: $gray-dark-color-light;
+        }
+    }
+}
+
+.tool-bar{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    .tools-01,
+    .tools-02{
+        display: flex;
+        gap: 1rem;
+    }
+}
+
+
+.btn{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    width: 110px;
+    background-color: $text-color-light;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: $text-color-bg-light;
+    cursor: pointer;
+    transition: .3s ease-out;
+    &:hover{
+        transform: scale(1.02);
+    }
+    .btn-name{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .btn-img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &.secondary{
+        background-color: $secondary-color-light;
+    }
+    &.warning{
+        background-color: $warning-color-light;
+    }
+}
+
+.data-table{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dt-wrap{
+    background-color: $text-color-bg-light;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 15px;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    .dt-header{
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        .header-wrap{
+            display: flex;
+            gap: 1rem;
+            img{
+                cursor: pointer;
+                transition: .3s ease-out;
+                &.active{
+                    transform: rotate(180deg);
+                }
+            }
+            input{
+                border: none;
+                background-color: transparent;
+                font-size: 14px;
+                outline: none;
+                font-weight: 600;
+                border-bottom: solid 2px $gray-color-light;
+                transition: .3s ease-out;
+                &::placeholder{
+                    color: $gray-color-light;
+                }
+                &:focus{
+                    border-bottom: solid 2px $text-color-light;
+                }
+            }
+        }
+    }
+    .dt-body{
+        width: 100%;
+        height: fit-content;
+    }
+}
+
+.dt-all{
+    width: 100%;
+    thead, tbody{
+        width: 100%;
+        tr{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            height: 40px;
+            align-items: center;
+            border-bottom: solid 1px $gray-color-light;
+            cursor: pointer;
+            th, td{
+                text-align: left;
+                width: 150px;
+            }
+            th{
+                font-weight: 700;
+                font-size: 14px;
+            }
+            td{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                &.primary{
+                    background-color: $primary-color-light;
+                }
+                &.gray{
+                    background-color: $gray-dark-color-light;
+                }
+                .loan{
+                    font-weight: 700;
+                    color: $text-color-bg-light;
+                    padding: 5px;
+                    border-radius: 6px;
+                    background-color: $gray-dark-color-light;
+                    &.full{
+                        background-color: $primary-color-light;
+                    }
+                }
+            }
+            th:nth-child(1),
+            td:nth-child(1){
+                width: 8px;
+            }
+            th:nth-child(2),
+            td:nth-child(2){
+                width: 20px;
+            }
+            th:nth-child(7),
+            td:nth-child(7){
+                width: 45px;
+            }
+            th:last-child,
+            td:last-child{
+                width: 76px;
+                text-align: end;
+                justify-content: flex-end;
+            }
+        }
+    }
+    tbody{
+        tr:hover{
+            background-color: rgba($primary-color-light, .3);
+        }
+        tr:last-child{
+            border-bottom: none;
+        }
+    }
+}
+
+.dt-pagination{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+    img{
+        cursor: pointer;
+        transition: .3s ease-out;
+        &:hover{
+            transform: scale(1.05);
+        }
+        &.disabled{
+            pointer-events: none;
+            opacity: .5;
+        }
+    }
+}
+
 
 /* Dark Theme */
 
@@ -460,17 +747,68 @@ body{
 
 /* Responsive */
 
-@media (max-width: 600px){
+@media (min-width: 1301px) {
+    .dashboard-part-02{
+        .datatable{
+            td{
+                width: fit-content !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 1300px) {
+    .client-page{
+        padding: 100px 40px 180px 40px;
+        height: auto;
+    }
+}
+
+@media (max-width: 1200px) {
+    /* Client Page */
+    .client-page{
+        padding: 100px 40px 180px 40px;
+        height: auto;
+    }
+    .dashboard-part-01{
+        .datatable{
+            td{
+                &:nth-child(2), &:nth-child(3){
+                    display: none;
+                }
+            }
+        }
+    }
+    .dashboard-part-02{
+        .datatable{
+            td:nth-child(2){
+                display: none;
+            }
+        }
+    }
+    .footer-datatable{
+        span{
+            font-size: 12px;
+        }
+        a{
+            font-size: 12px;
+            white-space: nowrap;
+            padding: 10px 7px;
+        }
+    }
+}
+
+@media (max-width: 1000px){
     /* Client Page */
     .client-page{
         padding: 80px 25px 180px 25px;
         height: auto;
-        
     }
     .btn-icon{
         width: 50px;
         height: 50px;
-        z-index: 1;
+        z-index: 2;
+        border: none;
         img{
             width: 22px;
             height: auto;
@@ -482,16 +820,18 @@ body{
         &#exit{
             right: 10px;
             top: 10px;
-            left: auto;
         }
     }
     .client-navbar{
-        bottom: -70px;
+        bottom: 0;
         top: auto;
-        z-index: 1;
+        z-index: 2;
         background-color: $primary-color-light;
-        padding: 20px;
+        padding: 5px;
         width: 100vw;
+        .items-wrap{
+            height: 40px;
+        }
     }
     .tasks-shortcuts{
         display: grid;
@@ -519,8 +859,9 @@ body{
         height: fit-content;
         .money-statistics{
             justify-content: space-between;
+            width: 100%;
             .total-money{
-                width: 180px;
+                width: 60%;
                 height: 200px;
                 .total{
                     font-size: 24px;
@@ -539,8 +880,9 @@ body{
                 }
             }
             .total-paids{
+                width: 35%;
                 .paids, .nopaids{
-                    width: 85px;
+                    width: calc(100% - 40px);
                     height: 85px;
                     padding: 20px;
                     justify-content: space-between;
@@ -560,9 +902,9 @@ body{
                 .datatable{
                     td{
                         padding: 6px 0;
-                        &:nth-child(2), &:nth-child(3){
-                            display: none;
-                        }
+                    }
+                    td:nth-child(2){
+                        display: block;
                     }
                 }
             }
@@ -570,17 +912,26 @@ body{
     }
     .dashboard-part-02{
         flex-direction: column;
+        .datatable{
+            td:nth-child(2){
+                display: block;
+            }
+        }
     }
     .footer-datatable{
         span{
             font-size: 12px;
         }
     }
+    .cards-wrap{
+        justify-content: space-between;
+        width: 100%;
+    }
     .card{
         padding: 0;
         height: 120px;
         padding: 20px;
-        width: auto;
+        width: 47%;
         .title{
             font-size: 12px;
         }
@@ -590,7 +941,94 @@ body{
         .footer{
             font-size: 12px;
         }
+        &.c2{
+            width: 47%;
+        }
 
     }
-    
+
+    /* Business Page  */
+    .navbar-business{
+        justify-content: center;
+        ul{
+            width: fit-content;
+        }
+    }
+
+    .dt-all{
+        th:nth-child(2),
+        td:nth-child(2),
+        th:nth-child(5),
+        td:nth-child(5)
+        {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .tool-bar{
+        flex-direction: column;
+        gap: .5rem;
+        .tools-02{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: .5rem;
+            column-gap: .5rem;
+
+        }
+    }
+    .btn{
+        width: calc(100% - 24px);
+    }
+
+    /* Business Page */
+
+    .dt-all{
+        th:nth-child(2),
+        td:nth-child(2),
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5),
+        th:nth-child(7),
+        td:nth-child(7)
+        {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 600px){
+    .dashboard-part-01{
+        .datatable{
+            td{
+                &:nth-child(2), &:nth-child(3){
+                    display: none;
+                }
+            }
+        }
+    }
+
+    /* Business Page */
+
+    .dt-all{
+        th:nth-child(2),
+        td:nth-child(2),
+        th:nth-child(4),
+        td:nth-child(4),
+        th:nth-child(5),
+        td:nth-child(5),
+        th:nth-child(6),
+        td:nth-child(6),
+        th:nth-child(7),
+        td:nth-child(7)
+        {
+            display: none;
+        }
+    }
+
+    .dt-pagination{
+        justify-content: center;
+    }
 }

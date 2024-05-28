@@ -4,7 +4,7 @@ import Sb from '@public/assets/icons/sb-icon.png'
 const SbIcon = () => {
   return (
     <div className='btn-icon' id="sb">
-        <Image src={Sb} width={30} height={'auto'} alt="Exit"/>
+        <Image src={Sb} width={20} height={'auto'} alt="Exit"/>
     </div>
   )
 }
