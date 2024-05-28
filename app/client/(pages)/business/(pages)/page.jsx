@@ -10,6 +10,7 @@ import PayBtn from '@public/assets/icons/btn-pay.png'
 import SearchIcon from '@public/assets/icons/search-icon.png'
 import RightArrow from '@public/assets/icons/right-arrow.png'
 import LeftArrow from '@public/assets/icons/left-arrow.png'
+import DeselectIcon from '@public/assets/icons/deselect-icon.png'
 
 const Clients = () => {
 
@@ -133,17 +134,18 @@ const Clients = () => {
   )
 
   const handlePreviousPage = () => {
+    setSelRow({id:0})
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
   }
 
   const handleNextPage = () => {
+    setSelRow({id:0})
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1)
     }
   }
-
 
   const handleClientActive = (cli) => {
     const isDate = new Date(cli.end)
@@ -157,7 +159,12 @@ const Clients = () => {
       return true
     }
   }
-  return (
+
+  const [selRow, setSelRow] = useState({
+    id: 0
+  })
+
+   return (
     <div className="company-page">
       <section className="stats-bar">
         <div className={activeTable === 1?"card-bar active":"card-bar"} onClick={()=>setActiveTable(1)}>
@@ -200,7 +207,7 @@ const Clients = () => {
           </div>
         </div>
         <div className="tools-02">
-          <div className="btn secondary">
+          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"}>
             <div className="btn-img">
               <Image src={RenewBtn} width={19} height={'auto'} alt="Renew"/>
             </div>
@@ -208,7 +215,7 @@ const Clients = () => {
               Renovar
             </div>
           </div>
-          <div className="btn secondary">
+          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"}>
             <div className="btn-img">
               <Image src={PayBtn} width={11} height={'auto'} alt="Pay"/>
             </div>
@@ -216,7 +223,7 @@ const Clients = () => {
               Regis Pago
             </div>
           </div>
-          <div className="btn secondary">
+          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"}>
             <div className="btn-img">
               <Image src={AsisBtn} width={17} height={'auto'} alt="Asis"/>
             </div>
@@ -224,7 +231,7 @@ const Clients = () => {
               Regis Asis.
             </div>
           </div>
-          <div className="btn warning">
+          <div className={selRow.id > 0 ?"btn warning": "btn warning disabled"}>
             <div className="btn-img">
               <Image src={DelBtn} width={12} height={'auto'} alt="Delete"/>
             </div>
@@ -241,6 +248,13 @@ const Clients = () => {
               <Image src={SearchIcon} width={27} height={'auto'} alt='Search' onClick={()=> console.log('hola')}/>
               <input placeholder='Buscar'/>
             </div>
+            {
+              selRow.id > 0 && (
+                <div className="header-deselect">
+                  <Image src={DeselectIcon} width={21} height={'auto'} alt='Deselect' onClick={()=>setSelRow({id:0})}/>
+                </div>
+              )
+            }
           </div>
           <div className="dt-body">
             {
@@ -275,7 +289,7 @@ const Clients = () => {
                   <tbody>
                     {
                       currentItems.map((cli, id)=>(
-                        <tr key={id}>
+                        <tr className={selRow.id === cli.id ? 'active':''} key={id} onClick={()=>setSelRow(cli)}>
                           {
                             handleClientActive(cli) ? (
                               <td className='primary'/>

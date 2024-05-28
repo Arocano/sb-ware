@@ -581,6 +581,10 @@ li{
     &.warning{
         background-color: $warning-color-light;
     }
+    &.disabled{
+        pointer-events: none;
+        opacity: .5;
+    }
 }
 
 .data-table{
@@ -627,6 +631,17 @@ li{
                 }
             }
         }
+        .header-deselect{
+            cursor: pointer;
+            transform-origin: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .3s ease-out;
+            &:hover{
+                transform: rotate(180deg);
+            }
+        }
     }
     .dt-body{
         width: 100%;
@@ -646,6 +661,7 @@ li{
             align-items: center;
             border-bottom: solid 1px $gray-color-light;
             cursor: pointer;
+            transition: .3s ease-out;
             th, td{
                 text-align: left;
                 width: 150px;
@@ -693,11 +709,16 @@ li{
                 text-align: end;
                 justify-content: flex-end;
             }
+            &.active{
+                background-color: rgba($primary-color-light, .3);
+            }
         }
     }
     tbody{
         tr:hover{
             background-color: rgba($primary-color-light, .3);
+            transform: scale(1.01);
+            box-shadow: 10px 10px 20px rgba(black, 0.2);
         }
         tr:last-child{
             border-bottom: none;
