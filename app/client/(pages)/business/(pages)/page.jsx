@@ -19,7 +19,7 @@ const Clients = () => {
 
   /* Client Data */
 
-  const clientData = [
+  const [clientData, setClientData] = useState([
     {
       id: 1,
       name: 'Farid Ruano',
@@ -31,7 +31,7 @@ const Clients = () => {
     },
     {
       id: 2,
-      name: 'Farid Ruano',
+      name: 'Marcela Cabrera',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -40,7 +40,7 @@ const Clients = () => {
     },
     {
       id: 3,
-      name: 'Farid Ruano',
+      name: 'Mateo Chagcha',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -49,7 +49,7 @@ const Clients = () => {
     },
     {
       id: 4,
-      name: 'Farid Ruano',
+      name: 'Roberto Quinonez',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -58,7 +58,7 @@ const Clients = () => {
     },
     {
       id: 5,
-      name: 'Farid Ruano',
+      name: 'Jose Delgado',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -67,7 +67,7 @@ const Clients = () => {
     },
     {
       id: 6,
-      name: 'Farid Ruano',
+      name: 'Debora Delgado',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -76,7 +76,7 @@ const Clients = () => {
     },
     {
       id: 7,
-      name: 'Farid Ruano',
+      name: 'Samantha Robalino',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -85,7 +85,7 @@ const Clients = () => {
     },
     {
       id: 8,
-      name: 'Farid Ruano',
+      name: 'Samantha Velarde',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -94,7 +94,7 @@ const Clients = () => {
     },
     {
       id: 9,
-      name: 'Farid Ruano',
+      name: 'David Zamora',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -103,7 +103,7 @@ const Clients = () => {
     },
     {
       id: 10,
-      name: 'Farid Ruano',
+      name: 'Martha Lucia',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
@@ -112,26 +112,31 @@ const Clients = () => {
     },
     {
       id: 11,
-      name: 'Farid Ruano',
+      name: 'Vladimir Torres',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
       asis: 30,
       debt: 30,
     },
-  ]
+  ])
 
   /* DataTable */
 
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
-  const totalPages = Math.ceil(clientData.length / itemsPerPage)
+  const [selRow, setSelRow] = useState({
+    id: 0
+  })
 
-  const currentItems = clientData.slice(
+  const [searchTerm, setSearchTerm] = useState('') 
+  const [totalPages, setTotalPages] = useState(Math.ceil(clientData.length / itemsPerPage))
+
+  const [currentItems, setCurrentItems] = useState(clientData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-  )
+  ))
 
   const handlePreviousPage = () => {
     setSelRow({id:0})
@@ -160,9 +165,22 @@ const Clients = () => {
     }
   }
 
-  const [selRow, setSelRow] = useState({
-    id: 0
-  })
+  const handleSearchTerm = (event) => {
+    setSearchTerm(event.target.value)
+    setCurrentPage(1)
+    if(event.target.value.length<1){
+      setCurrentItems(clientData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      ))
+      setTotalPages(Math.ceil(clientData.length / itemsPerPage))
+    }else{
+      setTotalPages(1)
+      setCurrentItems(clientData.filter(cli =>
+        cli.name.toLowerCase().includes(event.target.value.toLowerCase())
+      ))
+    }
+  }
 
    return (
     <div className="company-page">
@@ -246,7 +264,7 @@ const Clients = () => {
           <div className="dt-header">
             <div className="header-wrap">
               <Image src={SearchIcon} width={27} height={'auto'} alt='Search' onClick={()=> console.log('hola')}/>
-              <input placeholder='Buscar'/>
+              <input placeholder='Buscar' type='text' onChange={handleSearchTerm} value={searchTerm}/>
             </div>
             {
               selRow.id > 0 && (
@@ -258,7 +276,7 @@ const Clients = () => {
           </div>
           <div className="dt-body">
             {
-              clientData.length > 0 ? (
+              currentItems.length > 0 ? (
                 <table className="dt-all">
                   <thead>
                     <tr>
