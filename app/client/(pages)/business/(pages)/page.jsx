@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddBtn from '@public/assets/icons/btn-add.png'
 import DelBtn from '@public/assets/icons/btn-delete.png'
 import RenewBtn from '@public/assets/icons/btn-renew.png'
@@ -18,15 +18,14 @@ const Clients = () => {
   const [activeTable, setActiveTable] = useState(1)
 
   /* Client Data */
-
-  const [clientData, setClientData] = useState([
+  const [baseData, setBaseData] = useState([
     {
       id: 1,
       name: 'Farid Ruano',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
-      asis: 30,
+      asis: 0,
       debt: 30,
     },
     {
@@ -35,7 +34,7 @@ const Clients = () => {
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
       end: '2024-06-12',
-      asis: 30,
+      asis: 0,
       debt: 30,
     },
     {
@@ -43,7 +42,7 @@ const Clients = () => {
       name: 'Mateo Chagcha',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-06-08',
       asis: 30,
       debt: 30,
     },
@@ -61,7 +60,7 @@ const Clients = () => {
       name: 'Jose Delgado',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-06-07',
       asis: 30,
       debt: 30,
     },
@@ -79,8 +78,8 @@ const Clients = () => {
       name: 'Samantha Robalino',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
-      asis: 30,
+      end: '2024-06-05',
+      asis: 10,
       debt: 30,
     },
     {
@@ -115,11 +114,118 @@ const Clients = () => {
       name: 'Vladimir Torres',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-05-20',
       asis: 30,
       debt: 30,
     },
   ])
+
+  const [clientData, setClientData] = useState([
+    {
+      id: 1,
+      name: 'Farid Ruano',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 0,
+      debt: 30,
+    },
+    {
+      id: 2,
+      name: 'Marcela Cabrera',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 0,
+      debt: 30,
+    },
+    {
+      id: 3,
+      name: 'Mateo Chagcha',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-08',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 4,
+      name: 'Roberto Quinonez',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 5,
+      name: 'Jose Delgado',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-07',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 6,
+      name: 'Debora Delgado',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 7,
+      name: 'Samantha Robalino',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-05',
+      asis: 10,
+      debt: 30,
+    },
+    {
+      id: 8,
+      name: 'Samantha Velarde',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 9,
+      name: 'David Zamora',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 10,
+      name: 'Martha Lucia',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-06-12',
+      asis: 30,
+      debt: 30,
+    },
+    {
+      id: 11,
+      name: 'Vladimir Torres',
+      plan: 'Plan Guaytambo',
+      init: '2024-05-12',
+      end: '2024-05-20',
+      asis: 30,
+      debt: 30,
+    },
+  ])
+  
+  const [activeData, setActiveData] = useState([])
+
+  const [inactiveData, setInactiveData] = useState([])
+
 
   /* DataTable */
 
@@ -142,25 +248,40 @@ const Clients = () => {
     setSelRow({id:0})
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
+      const nextPage = currentPage - 1
+      setCurrentPage(nextPage)
+      setCurrentItems(clientData.slice(
+        (nextPage - 1) * itemsPerPage,
+        nextPage * itemsPerPage
+      ))
     }
   }
 
   const handleNextPage = () => {
     setSelRow({id:0})
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
+      const nextPage = currentPage + 1
+      setCurrentPage(nextPage)
+      setCurrentItems(clientData.slice(
+        (nextPage - 1) * itemsPerPage,
+        nextPage * itemsPerPage
+      ))
     }
   }
 
   const handleClientActive = (cli) => {
     const isDate = new Date(cli.end)
 
+    const asis = cli.asis
+
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
     if(isDate < currentDate){
       return false
-    }else{
+    }else if(asis < 1){
+      return false
+    } else{
       return true
     }
   }
@@ -182,10 +303,62 @@ const Clients = () => {
     }
   }
 
+  const handleDataClient = (n) => {
+    setActiveTable(n)
+    const current = new Date()
+    if(n === 1){
+      setClientData(baseData)
+      setTotalPages(Math.ceil(baseData.length / itemsPerPage))
+      setCurrentItems(baseData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      ))
+    }
+
+    if(n === 2) {
+      const filteredData = (baseData.filter(cli => {
+        const cliDate = new Date(cli.end)
+        
+        // Control date validness
+        if (isNaN(cliDate)) {
+          console.warn(`Invalid date: ${cli.end}`)
+          return false;
+        }
+        
+        return cli.asis > 0 && cliDate > current
+      }))
+      setClientData(filteredData)
+      setTotalPages(Math.ceil(filteredData.length / itemsPerPage))
+      setCurrentItems(filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      ))
+    }
+    if(n === 3){
+      const filteredData = (baseData.filter(cli => {
+        const cliDate = new Date(cli.end)
+        
+        // Control date validness
+        if (isNaN(cliDate)) {
+          console.warn(`Invalid date: ${cli.end}`)
+          return false;
+        }
+        
+        return cli.asis === 0 || cliDate < current
+      }))
+      setClientData(filteredData)
+      setTotalPages(Math.ceil(filteredData.length / itemsPerPage))
+      setCurrentItems(filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      ))
+    }
+  }
+
    return (
     <div className="company-page">
       <section className="stats-bar">
-        <div className={activeTable === 1?"card-bar active":"card-bar"} onClick={()=>setActiveTable(1)}>
+        <div className={activeTable === 1?"card-bar active":"card-bar"} onClick={()=>handleDataClient(1)}>
           <span>
             Clientes
           </span>
@@ -194,7 +367,7 @@ const Clients = () => {
           </h1>
           <div className="active-bar"/>
         </div>
-        <div className={activeTable === 2?"card-bar primary active":"card-bar primary"} onClick={()=>setActiveTable(2)}>
+        <div className={activeTable === 2?"card-bar primary active":"card-bar primary"} onClick={()=>handleDataClient(2)}>
           <span>
             Activos
           </span>
@@ -203,7 +376,7 @@ const Clients = () => {
           </h1>
           <div className="active-bar"/>
         </div>
-        <div className={activeTable === 3?"card-bar gray active":"card-bar gray"} onClick={()=>setActiveTable(3)}>
+        <div className={activeTable === 3?"card-bar gray active":"card-bar gray"} onClick={()=>handleDataClient(3)}>
           <span>
             Inactivos
           </span>

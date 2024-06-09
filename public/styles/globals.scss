@@ -95,6 +95,10 @@ li{
     justify-content: center;
     cursor: pointer;
     border: solid 5px $text-color-bg-light;
+    transition: .3s ease-out;
+    &:hover{
+        transform: scale(1.1);
+    }
     &#exit{
         right: 20px;
         top: 20px;
@@ -136,6 +140,7 @@ li{
             position: relative;
             transition: .3s ease-out;
             .item-name{
+                font-size: 14px;
                 position: absolute;
                 opacity: 0;
                 transform: translateX(0);
@@ -547,7 +552,6 @@ li{
     }
 }
 
-
 .btn{
     display: flex;
     justify-content: flex-start;
@@ -847,11 +851,18 @@ li{
         bottom: 0;
         top: auto;
         z-index: 2;
-        background-color: $primary-color-light;
+        background-color: $-color-black;
         padding: 5px;
         width: 100vw;
         .items-wrap{
-            height: 40px;
+            height: 60px;
+            font-size: 12px;
+            .item-icon{
+                filter: invert(1);
+            }
+            .item-name{
+                color: $text-color-bg-light;
+            }
         }
     }
     .tasks-shortcuts{
