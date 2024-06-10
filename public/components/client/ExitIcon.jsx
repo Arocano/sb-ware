@@ -10,7 +10,7 @@ const ExitIcon = () => {
   
   return (
     <div className='btn-icon' id="exit" onClick={()=>router.push('/')}>
-        <Image src={Exit} width={18} height={'auto'} alt="Exit"/>
+        <Image src={Exit} width={15} height={'auto'} alt="Exit"/>
     </div>
   )
 }
