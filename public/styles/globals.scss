@@ -20,6 +20,12 @@ li{
     padding: 0;
 }
 
+input, select {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+
 .app{
     margin: 0;
 }
@@ -1189,6 +1195,7 @@ li{
                         .input-form{
                             input{
                                 width: calc(100% - 1rem - 100px);
+                                font-size: 16px;
                             }
                             label{
                                 font-size: 14px;
