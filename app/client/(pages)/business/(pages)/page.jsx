@@ -11,7 +11,9 @@ import SearchIcon from '@public/assets/icons/search-icon.png'
 import RightArrow from '@public/assets/icons/right-arrow.png'
 import LeftArrow from '@public/assets/icons/left-arrow.png'
 import DeselectIcon from '@public/assets/icons/deselect-icon.png'
+import WarningIcon from '@public/assets/icons/warning-icon.png'
 import ConfirmModal from '@public/components/client/ConfirmModal'
+import RenewModal from '@public/components/client/RenewModal'
 
 const Clients = () => {
 
@@ -225,10 +227,6 @@ const Clients = () => {
     },
   ])
   
-  const [activeData, setActiveData] = useState([])
-
-  const [inactiveData, setInactiveData] = useState([])
-
   const countClients = () => {
     return baseData.length
   }
@@ -266,6 +264,52 @@ const Clients = () => {
     return filteredData.length
   }
 
+  /* Plan Data */
+
+  const [planData, setPlanData] = useState([
+    {
+      id: 1,
+      name: 'Plan Guaytambo',
+      duration: 30,
+      asis: 30,
+      costo: 30
+    },
+    {
+      id: 2,
+      name: 'Plan Guaytambo 2',
+      duration: 40,
+      asis: 40,
+      costo: 40
+    },
+    {
+      id: 3,
+      name: 'Plan Guaytambo 3',
+      duration: 50,
+      asis: 50,
+      costo: 50
+    }
+  ])
+
+  const [planSel, setPlanSel] = useState(0)
+
+  const handlePlan = (e) => {
+    const selPlan = planData.find(plan => plan.id === Number(e.target.value))
+
+    if(selPlan){
+      setDurationPlan(selPlan.duration)
+      setAsisPlan(selPlan.asis)
+      const [year, month, day] = startDate.split('-')
+      const date = new Date(year, month - 1, day)
+      setEndDate(getFormattedDate(addDays(date, selPlan.duration)))
+      setPlanSel(e.target.value)
+    }else{
+      setDurationPlan(0)
+      setAsisPlan(0)
+      setEndDate(getFormattedDate(addDays(currentDate, 0)))
+      setPlanSel(0)
+    }
+  }
+
   /* Add Client */
 
   const [addClient, setAddClient] = useState(false)
@@ -275,7 +319,9 @@ const Clients = () => {
     setSelRow({id:0})
   }
 
-  const [durationPlan, setDurationPlan] = useState(30)
+  const [durationPlan, setDurationPlan] = useState(0)
+
+  const [asisPlan, setAsisPlan] = useState(0)
   
   const currentDate = new Date()
 
@@ -305,12 +351,41 @@ const Clients = () => {
     address: '',
   })
 
+  const [sendable, setSendable] = useState(false)
+
+  const [errorEmail, setErrorEmail] = useState(false)
+
+  const [errorMsg, setErrorMsg] = useState('')
+
+
   const handleNewClient = (e) => {
     const { name, value } = e.target
+    
+    /* Ced Controller */
+    if(name === 'ced' || name === 'phone'){
+      if (!/^\d*$/.test(value) || value.length > 10) {
+        return
+      }
+    }
+    if(name === 'email'){
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        if(value.length < 1){
+          setErrorEmail(false)
+        }else{
+          setErrorEmail(true)
+          setErrorMsg("Email no válido.")
+        }
+      }else{
+        setErrorEmail(false)
+      }
+    }
     setNewClient({
       ...newClient,
       [name]: value,
     })
+      
+    
   }
 
   const handleStartDate = (e) => {
@@ -320,9 +395,23 @@ const Clients = () => {
     setEndDate(getFormattedDate(addDays(date, durationPlan)))
   }
 
+  const handleSubmit = () => {
+    if(newClient.ced.length < 10 || newClient.name.length < 2 || newClient.last.length < 2
+      || errorEmail || newClient.email.length < 1 || newClient.ced.length < 7 || newClient.address.length < 1
+      || !planSel > 0
+    ){
+      setSendable(true)
+      setErrorMsg('Existen campos vacios. Porfavor llenalos!')
+    }else{
+      setSendable(false)
+      console.log('Sendable')
+    }
+  }
+
   /* DataTable */
 
   const [currentPage, setCurrentPage] = useState(1)
+
   const itemsPerPage = 10
 
   const [selRow, setSelRow] = useState({
@@ -330,6 +419,7 @@ const Clients = () => {
   })
 
   const [searchTerm, setSearchTerm] = useState('') 
+
   const [totalPages, setTotalPages] = useState(Math.ceil(clientData.length / itemsPerPage))
 
   const [currentItems, setCurrentItems] = useState(clientData.slice(
@@ -450,6 +540,8 @@ const Clients = () => {
 
   /* Modals */
 
+  /* Confirm Delete */
+
   const [confirmModal, setConfirmModal] = useState(false)
 
   const handleConfirm = () => {
@@ -468,6 +560,18 @@ const Clients = () => {
       currentPage * itemsPerPage
     ))
     setSelRow({id:0})
+  }
+
+  /* Renew */
+
+  const [renewModal, setRenewModal] = useState(false)
+
+  const handleRenew = () => {
+    setRenewModal(current => !current)
+  }
+
+  const handleRenewResponse = (pl, dt) => {
+    setRenewModal(current => !current)
   }
 
    return (
@@ -519,7 +623,7 @@ const Clients = () => {
           </div>
         </div>
         <div className="tools-02">
-          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"}>
+          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"} onClick={()=>handleRenew()}>
             <div className="btn-img">
               <Image src={RenewBtn} width={19} height={'auto'} alt="Renew"/>
             </div>
@@ -690,7 +794,7 @@ const Clients = () => {
                       <input type="text" name='email' onChange={handleNewClient} value={newClient.email}/>
                     </div>
                     <div className="input-form">
-                      <label>Telefono</label>
+                      <label>Teléfono</label>
                       <input type="text" name='phone' onChange={handleNewClient} value={newClient.phone}/>
                     </div>
                     <div className="input-form">
@@ -706,7 +810,18 @@ const Clients = () => {
                   <div className="body">
                     <div className="input-form">
                       <label>Plan</label>
-                      <input type="text" />
+                      <select onChange={handlePlan}>
+                        <option value='0'>
+                          Seleccionar
+                        </option>
+                        {
+                          planData.map((op, id)=>(
+                            <option key={id} value={op.id}>
+                              {op.name}
+                            </option>
+                          ))
+                        }
+                      </select>
                     </div>
                     <div className="input-form">
                       <label>Inicio</label>
@@ -714,11 +829,11 @@ const Clients = () => {
                     </div>
                     <div className="input-form">
                       <label>Duración</label>
-                      <input type="text" />
+                      <input type="number" value={durationPlan} disabled/>
                     </div>
                     <div className="input-form">
                       <label>No. Asis</label>
-                      <input type="text" />
+                      <input type="number" value={asisPlan} disabled/>
                     </div>
                     <div className="input-form">
                       <label>Fin</label>
@@ -728,7 +843,13 @@ const Clients = () => {
                 </div>
               </form>
               <div className="form-submit">
-                <div className="btn primary">
+                <div className={sendable || errorEmail ?"error-msg":"error-msg hidden"}>
+                  <Image src={WarningIcon} width={22} height={'auto'} alt='WARNING'/>
+                  <span>
+                    {errorMsg}
+                  </span>
+                </div>
+                <div className="btn primary" onClick={()=>handleSubmit()}>
                   Guardar
                 </div>
               </div>
@@ -738,6 +859,7 @@ const Clients = () => {
         )
       }
       <ConfirmModal isActive={confirmModal} handleModal={handleConfirm} handleResponse={handleConfirmResponse} dataModal={selRow}/>
+      <RenewModal isActive={renewModal} handleModal={handleRenew} handleResponse={handleRenewResponse} dataModal={selRow} dataModal2={planData}/>
     </div>
   )
 }

@@ -2,12 +2,9 @@
 
 import TrashIcon from '@public/assets/icons/trash-icon.png'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 
 const ConfirmModal = ({isActive, handleModal, handleResponse, dataModal}) => {
 
-
-    
   return (
     <div className={isActive?'modal-container':'modal-container hidden'} id='confirm-container'>
         <div className="modal-wrap">
