@@ -102,6 +102,7 @@ input, select {
     cursor: pointer;
     border: solid 5px $text-color-bg-light;
     transition: .3s ease-out;
+    z-index: 2;
     &:hover{
         transform: scale(1.1);
     }
@@ -127,6 +128,7 @@ input, select {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
     .items-wrap{
         margin: 0;
         display: flex;
@@ -882,8 +884,18 @@ input, select {
         border-left: none;
         border-right: none;
         border-bottom: solid 1px $text-color-light;
-        width: 300px;
+        width: 280px;
+        max-width: 280px;
         border-radius: 0;
+    }
+    &.number-big{
+        justify-content: center;
+        input{
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            width: 150px;
+        }
     }
 }
 
@@ -928,6 +940,12 @@ input, select {
             &.center{
                 text-align: center;
             }
+            &.error{
+                color: $warning-color-light;
+            }
+            &.sm{
+                font-size: 12px;
+            }
         }
         .modal-options{
             width: 100%;
@@ -953,6 +971,10 @@ input, select {
                 }
                 &.cancel{
                     background-color: $gray-color-light;
+                }
+                &.disabled{
+                    pointer-events: none;
+                    opacity: .5;
                 }
                 &:hover{
                     transform: scale(1.05);

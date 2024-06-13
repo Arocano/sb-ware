@@ -14,8 +14,9 @@ import DeselectIcon from '@public/assets/icons/deselect-icon.png'
 import WarningIcon from '@public/assets/icons/warning-icon.png'
 import ConfirmModal from '@public/components/client/ConfirmModal'
 import RenewModal from '@public/components/client/RenewModal'
+import PayModal from '@public/components/client/PayModal'
 
-const Clients = () => {
+const Clients = () =>  {
 
   /* Active Table */
 
@@ -29,7 +30,7 @@ const Clients = () => {
       name: 'Farid Ruano',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-07-12',
       asis: 0,
       debt: 30,
     },
@@ -38,8 +39,8 @@ const Clients = () => {
       name: 'Marcela Cabrera',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
-      asis: 0,
+      end: '2024-07-12',
+      asis: 30,
       debt: 30,
     },
     {
@@ -56,7 +57,7 @@ const Clients = () => {
       name: 'Roberto Quinonez',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-07-12',
       asis: 30,
       debt: 30,
     },
@@ -92,7 +93,7 @@ const Clients = () => {
       name: 'Samantha Velarde',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-07-12',
       asis: 30,
       debt: 30,
     },
@@ -131,7 +132,7 @@ const Clients = () => {
       name: 'Farid Ruano',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-07-12',
       asis: 0,
       debt: 30,
     },
@@ -140,8 +141,8 @@ const Clients = () => {
       name: 'Marcela Cabrera',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
-      asis: 0,
+      end: '2024-07-12',
+      asis: 30,
       debt: 30,
     },
     {
@@ -158,7 +159,7 @@ const Clients = () => {
       name: 'Roberto Quinonez',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-07-12',
       asis: 30,
       debt: 30,
     },
@@ -194,7 +195,7 @@ const Clients = () => {
       name: 'Samantha Velarde',
       plan: 'Plan Guaytambo',
       init: '2024-05-12',
-      end: '2024-06-12',
+      end: '2024-07-12',
       asis: 30,
       debt: 30,
     },
@@ -574,6 +575,18 @@ const Clients = () => {
     setRenewModal(current => !current)
   }
 
+  /* Pay */
+
+  const [payModal, setPayModal] = useState(false)
+
+  const handlePay = () => {
+    setPayModal(current => !current)
+  }
+
+  const handlePayResponse = () => {
+    setPayModal(current => !current)
+  }
+
    return (
     <div className="company-page">
       <section className={addClient?"stats-bar disabled":"stats-bar"}>
@@ -631,7 +644,7 @@ const Clients = () => {
               Renovar
             </div>
           </div>
-          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"}>
+          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"} onClick={()=>handlePay()}>
             <div className="btn-img">
               <Image src={PayBtn} width={11} height={'auto'} alt="Pay"/>
             </div>
@@ -860,6 +873,7 @@ const Clients = () => {
       }
       <ConfirmModal isActive={confirmModal} handleModal={handleConfirm} handleResponse={handleConfirmResponse} dataModal={selRow}/>
       <RenewModal isActive={renewModal} handleModal={handleRenew} handleResponse={handleRenewResponse} dataModal={selRow} dataModal2={planData}/>
+      <PayModal isActive={payModal} handleModal={handlePay} handleResponse={handlePayResponse} dataModal={selRow}/>
     </div>
   )
 }

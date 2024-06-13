@@ -2,7 +2,7 @@
 
 import RenewIcon from '@public/assets/icons/renew-icon.png'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DelBtn from '@public/assets/icons/btn-delete.png'
 
 const RenewModal = ({isActive, handleModal, handleResponse, dataModal, dataModal2}) => {
@@ -87,7 +87,7 @@ const RenewModal = ({isActive, handleModal, handleResponse, dataModal, dataModal
                         }}>
                             Regresar
                         </button>
-                        <button className='option confirm' disabled={plan === 0} onClick={()=>{
+                        <button className={plan !== 0 ?'option confirm':'option confirm disabled'} disabled={plan === 0} onClick={()=>{
                             handleResponse(plan, startDate)
                             setChangeModal(false)
                             setStartDate(getFormattedDate(currentDate))
