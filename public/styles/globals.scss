@@ -39,7 +39,7 @@ input, select {
 
 .client-page{
     background-color: $background-color-light;
-    height: calc(100vh - 200px);
+    height: calc(fit-content + 100px);
     padding: 100px;
 }
 
@@ -128,7 +128,7 @@ input, select {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
     .items-wrap{
         margin: 0;
         display: flex;

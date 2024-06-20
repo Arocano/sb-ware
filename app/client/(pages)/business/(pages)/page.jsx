@@ -15,6 +15,7 @@ import WarningIcon from '@public/assets/icons/warning-icon.png'
 import ConfirmModal from '@public/components/client/ConfirmModal'
 import RenewModal from '@public/components/client/RenewModal'
 import PayModal from '@public/components/client/PayModal'
+import StatusModal from '@public/components/client/StatusModal'
 
 const Clients = () =>  {
 
@@ -587,6 +588,20 @@ const Clients = () =>  {
     setPayModal(current => !current)
   }
 
+  /* Status */
+
+  const [statusModal, setStatusModal] = useState(false)
+
+  const handleStatus = () => {
+    setStatusModal(current => !current)
+  }
+
+  const [statusMsg, setStatusMsg] = useState('')
+
+  const handleStatusMsg = (msg) => {
+    setStatusModal(msg)
+  }
+
    return (
     <div className="company-page">
       <section className={addClient?"stats-bar disabled":"stats-bar"}>
@@ -874,6 +889,7 @@ const Clients = () =>  {
       <ConfirmModal isActive={confirmModal} handleModal={handleConfirm} handleResponse={handleConfirmResponse} dataModal={selRow}/>
       <RenewModal isActive={renewModal} handleModal={handleRenew} handleResponse={handleRenewResponse} dataModal={selRow} dataModal2={planData}/>
       <PayModal isActive={payModal} handleModal={handlePay} handleResponse={handlePayResponse} dataModal={selRow}/>
+      <StatusModal isActive={statusModal} message={statusMsg} handeModal={handleStatus}/>
     </div>
   )
 }

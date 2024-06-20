@@ -16,6 +16,8 @@ const PayModal = ({isActive, handleModal, handleResponse, dataModal}) => {
     const resetModal = () => {
         setChangeModal(false)
         handleModal()
+        setAmount(0)
+        setError(false)
     }
 
     const [amount, setAmount] = useState(0)
@@ -25,7 +27,10 @@ const PayModal = ({isActive, handleModal, handleResponse, dataModal}) => {
     const [actual, setActual] = useState(dataModal.debt)
 
     const handleAmount = (e) => {
+
         const value = e.target.value;
+
+        console.log(actual)
 
         const regex = /^\d*\.?\d{0,2}$/;
 
@@ -79,7 +84,7 @@ const PayModal = ({isActive, handleModal, handleResponse, dataModal}) => {
                         }}>
                             Regresar
                         </button>
-                        <button className={amount !== 0 ?'option confirm':'option confirm disabled'} disabled={amount > 0} onClick={()=>{
+                        <button className={amount > 0 && amount <= dataModal.debt ?'option confirm':'option confirm disabled'} onClick={()=>{
                             handleResponse(amount)
                             setChangeModal(false)
                             setAmount(0)
