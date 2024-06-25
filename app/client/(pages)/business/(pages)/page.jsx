@@ -407,6 +407,7 @@ const Clients = () =>  {
     }else{
       setSendable(false)
       console.log('Sendable')
+      handleAddClient()
     }
   }
 
@@ -547,6 +548,7 @@ const Clients = () =>  {
   const [confirmModal, setConfirmModal] = useState(false)
 
   const handleConfirm = () => {
+    handleStatusClose()
     setConfirmModal(current => !current)
   }
 
@@ -561,6 +563,7 @@ const Clients = () =>  {
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
     ))
+    handleStatus('Se elimino correctamente a ' + selRow.name + '.')
     setSelRow({id:0})
   }
 
@@ -569,11 +572,14 @@ const Clients = () =>  {
   const [renewModal, setRenewModal] = useState(false)
 
   const handleRenew = () => {
+    handleStatusClose()
     setRenewModal(current => !current)
   }
 
   const handleRenewResponse = (pl, dt) => {
     setRenewModal(current => !current)
+    handleStatus('El plan de ' + selRow.name + ' renovo correctamente.')
+    setSelRow({id:0})
   }
 
   /* Pay */
@@ -581,25 +587,34 @@ const Clients = () =>  {
   const [payModal, setPayModal] = useState(false)
 
   const handlePay = () => {
+    handleStatusClose()
     setPayModal(current => !current)
   }
 
   const handlePayResponse = () => {
     setPayModal(current => !current)
+    handleStatus('Se registro correctamente el pago de ' + selRow.name + '.')
+    setSelRow({id:0})
   }
 
   /* Status */
 
   const [statusModal, setStatusModal] = useState(false)
 
-  const handleStatus = () => {
+  const handleStatus = (msg) => {
     setStatusModal(current => !current)
+    handleStatusMsg(msg)
+    setSelRow({id:0})
   }
 
-  const [statusMsg, setStatusMsg] = useState('')
+  const handleStatusClose = () => {
+    setStatusModal(false)
+  }
+
+  const [statusMsg, setStatusMsg] = useState('Proceso Exitoso.')
 
   const handleStatusMsg = (msg) => {
-    setStatusModal(msg)
+    setStatusMsg(msg)
   }
 
    return (
@@ -667,7 +682,7 @@ const Clients = () =>  {
               Reg. Pago
             </div>
           </div>
-          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"}>
+          <div className={selRow.id > 0 ?"btn secondary": "btn secondary disabled"} onClick={()=>handleStatus('Se marco la asistencia de '+ selRow.name + ' con exito.')}>
             <div className="btn-img">
               <Image src={AsisBtn} width={17} height={'auto'} alt="Asis"/>
             </div>
@@ -691,7 +706,7 @@ const Clients = () =>  {
             <div className="dt-wrap">
               <div className="dt-header">
                 <div className="header-wrap">
-                  <Image src={SearchIcon} width={27} height={'auto'} alt='Search' onClick={()=> console.log('hola')}/>
+                  <Image src={SearchIcon} width={27} height={'auto'} alt='Search'/>
                   <input placeholder='Buscar' type='text' onChange={handleSearchTerm} value={searchTerm}/>
                 </div>
                 {
@@ -889,7 +904,7 @@ const Clients = () =>  {
       <ConfirmModal isActive={confirmModal} handleModal={handleConfirm} handleResponse={handleConfirmResponse} dataModal={selRow}/>
       <RenewModal isActive={renewModal} handleModal={handleRenew} handleResponse={handleRenewResponse} dataModal={selRow} dataModal2={planData}/>
       <PayModal isActive={payModal} handleModal={handlePay} handleResponse={handlePayResponse} dataModal={selRow}/>
-      <StatusModal isActive={statusModal} message={statusMsg} handeModal={handleStatus}/>
+      <StatusModal isActive={statusModal} message={statusMsg} handleModal={handleStatusClose}/>
     </div>
   )
 }

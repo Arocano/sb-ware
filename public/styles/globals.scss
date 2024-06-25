@@ -1005,6 +1005,31 @@ input, select {
     }
 }
 
+.status-container{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(100% - 40px);
+    height: 60px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    background-color: $primary-color-light;
+    animation: statusContainerInOut 5s ease-in-out forwards;
+    justify-content: space-between;
+    span{
+        font-size: 16px;
+    }
+    .status-close{
+        filter: invert(1);
+        cursor: pointer;
+        transition: .3s ease-out;
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+}
+
 /* Dark Theme */
 
 .dark{
@@ -1278,6 +1303,9 @@ input, select {
             }
         }
     }
+    .status-container{
+        bottom: 70px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -1381,4 +1409,17 @@ input, select {
     100%{
         display: none;
     }
+}
+
+@keyframes statusContainerInOut {
+    0%{
+        transform: translateY(150px);
+    }
+    10%, 80%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(150px);
+    }
+    
 }
