@@ -645,6 +645,7 @@ const Clients = () => {
   const handleAttent = async(msg) => {
     setStatusModal(current => !current)
     const data = {
+      
       action: "registerAttendance",
       id: selRow.id,
       data: currentDate
