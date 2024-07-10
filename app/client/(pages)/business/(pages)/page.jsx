@@ -58,7 +58,7 @@ const mongoPlanData = async () => {
 const postNewClient = async (newClient) => {
   try {
     const uri = process.env.NEXT_PUBLIC_API_URL;
-    console.log(uri)
+    //console.log(uri)
     const res = await fetch(`${uri}/api/client`, {
       method: 'POST',
       headers: {
@@ -645,7 +645,7 @@ const Clients = () => {
   const handleAttent = async(msg) => {
     setStatusModal(current => !current)
     const data = {
-      
+
       action: "registerAttendance",
       id: selRow.id,
       data: currentDate
