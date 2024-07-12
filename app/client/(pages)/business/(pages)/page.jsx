@@ -519,15 +519,13 @@ const Clients = () => {
     try {
       const fetchData = await mongoClientData()
       const planData = await mongoPlanData()
-      console.log(planData)
+      //console.log(planData)
       if (fetchData.length > 0) {
         setBaseData(fetchData)
         setClientData(fetchData)
-
       }
       if (planData.length > 0) {
         setPlanData(planData)
-
       }
 
     } catch (e) {
@@ -536,7 +534,6 @@ const Clients = () => {
   }
 
   useEffect(() => {
-
     fetchAndLoadPersons()
   }, [])
 
@@ -623,7 +620,7 @@ const Clients = () => {
     const data = {
       action: "registerPayment",
       id: selRow.id,
-      data: [response, currentDate]
+      data: [parseFloat(response), currentDate]
     };
     console.log(data)
     await updateClient(data)
